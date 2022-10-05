@@ -1,0 +1,177 @@
+package hw07;
+/**
+ * @author mina mekhaiel
+ * this class is designed to display on the console from the csv file
+ * This class will have a default constructor and will have six methods
+ * 1. To display all facilities with a specific grade 
+ * 2. To display all facilities with a score greater than or equal to a specific score
+ * 3. To display all facilities with a score less than or equal to a specific score
+ * 4. To display all facilities with a specific zip code
+ * 5. To display all facilities with a specific month date
+ * 6. To display the count of facilities with each grade.  
+ */
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+public class FacilityDatabase extends ArrayList<Facility>{
+	// Default Constructor
+	public FacilityDatabase()
+	{
+		
+	}
+	/**
+	 * this method is to display facilities with specific grades
+	 * it does have a for loop to keep iterating through the facility
+	 * database list. 
+	 * @param facility_grade character to store the user specified grade
+	 * @param facilities_limit integer to store how many facilities to display
+	 */
+	public void displayFacilitiesWithGrade(char facility_grade, int facilities_limit)
+	{
+		int count_limit = 0;
+		for(int i = 0; i < this.size(); i++)
+		{
+			Facility f = this.get(i);
+			if(f.getGrade() == facility_grade && facilities_limit == -1)
+			{
+				System.out.println(f);
+			}
+			else if(f.getGrade() == facility_grade && count_limit < facilities_limit)
+			{
+				System.out.println(f);
+				count_limit++;
+			}	
+		}	
+	}
+	/**
+	 * this method is to display facilities with specific scores greater than
+	 * or equal to the specified score it does have a for loop to keep 
+	 * iterating through the facility database list. 
+	 * @param score as integer to store the specified score
+	 * @param facilities_limit integer to store how many facilities to display
+	 */
+	public void displayFacilitiesWithScoreGreater(int score, int facilities_limit) 
+	{
+		int count_limit = 0;
+		for(int i = 0; i < this.size(); i++)
+		{	
+			Facility f = this.get(i);
+			if(f.getScore() >= score && facilities_limit == -1)
+			{
+				System.out.println(f);
+			}
+			else if(f.getScore() >= score && count_limit < facilities_limit)
+			{
+				System.out.println(f);
+				count_limit++;
+			}	
+		}
+	}
+	/**
+	 * this method is to display facilities with specific scores less than
+	 * or equal to the specified score it does have a for loop to keep 
+	 * iterating through the facility database list.
+	 * @param score as integer to store the specified score 
+	 * @param facilities_limit integer to store how many facilities to display
+	 */
+	public void displayFacilityWithScoreLess(int score, int facilities_limit)
+	{
+		int count_limit = 0;
+		for(int i = 0; i < this.size(); i++)
+		{	
+			Facility f = this.get(i);
+			if(f.getScore() <= score && facilities_limit == -1)
+			{
+				System.out.println(f);
+			}
+			else if(f.getScore() <= score && count_limit < facilities_limit)
+			{
+				System.out.println(f);
+				count_limit++;
+			}	
+		}
+	}
+	/**
+	 * this method is to display facilities with a specific zipcode
+	 * @param zipcode as an integer to specify the exact zipcode.
+	 * it does have a for loop to keep 
+	 * iterating through the facility database list.
+	 * @param facilities_limit integer to store how many facilities to display
+	 */
+	public void displayFacilitiesByZipcode(int zipcode, int facilities_limit)
+	{
+		int count_limit = 0;
+		for(int i = 0; i < this.size(); i++)
+		{	
+			Facility f = this.get(i);
+			if(f.getZipcode() == zipcode && facilities_limit == -1)
+			{
+				System.out.println(f);
+			}
+			else if(f.getZipcode() == zipcode && count_limit < facilities_limit)
+			{
+				System.out.println(f);
+				count_limit++;
+			}	
+		}
+	}
+	/**
+	 * this method is to display the facilities with specified month date 
+	 * it does have for loop to iterate through the facility list to display
+	 * @param date_month as an integer to store the specified month date 
+	 * @param facilities_limit integer to store how many facilities to display
+	 */
+	public void displayFacilitiesByMonth(int date_month, int facilities_limit)
+	{
+		int count_limit = 0;
+		for(int i = 0; i < this.size(); i++)
+		{	
+			Facility f = this.get(i);
+			if(f.getMonth() == date_month && facilities_limit == -1)
+			{
+				System.out.println(f);
+			}
+			else if(f.getMonth() == date_month && count_limit < facilities_limit)
+			{
+				System.out.println(f);
+				count_limit++;
+			}	
+		}
+	}
+	/**
+	 * This method is to display how many facilities in each grade
+	 * This method creates three array lists one for each grade
+	 * it does have a for loop to iterate through each facility 
+	 * adding the facilities with each grade in each array list that 
+	 * is specified with the grade. And displaying their sizes
+	 * And that's how I got each grade count
+	 */
+	public void displayCountsByGrade()
+	{
+		ArrayList<Facility> facilityA = new ArrayList<>();
+		ArrayList<Facility> facilityB = new ArrayList<>();
+		ArrayList<Facility> facilityC = new ArrayList<>();
+		
+		for(int i = 0; i < this.size(); i++)
+		{
+			Facility f = this.get(i);
+			if(f.getGrade() == 'A')
+			{
+				facilityA.add(f);
+			}
+			else if(f.getGrade() == 'B')
+			{
+				facilityB.add(f);
+			}
+			else 
+			{	
+				facilityC.add(f);
+			}
+		}
+		System.out.println("A- Grade Facilities: " + facilityA.size());
+		System.out.println("B- Grade Facilities: " + facilityB.size());
+		System.out.println("C- Grade Facilities: " + facilityC.size());
+	}
+}
+
+

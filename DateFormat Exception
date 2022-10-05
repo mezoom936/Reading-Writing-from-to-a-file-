@@ -1,0 +1,29 @@
+package hw07;
+
+/**
+ * This class is a custom exception class. It's designed to handle 
+ * an invalid format for any date in the csv file. It contains one 
+ * string data field and one constructor with a string parameter
+ * just to show the exception message. 
+ *
+ */
+/**
+ * Custom exception class for project.
+ * @author Keenan
+ *
+ */
+public class DateFormatException extends Exception {
+	/** String date data field to have it as a variable
+	 * specify it in the message*/
+	private String date;
+	
+	/**
+	 * Default constructor with calling the super word 
+	 * to invoke the exception message
+	 * @param msg
+	 */
+	public DateFormatException(String msg) {
+		super(msg);
+	}
+	
+}

@@ -1,0 +1,132 @@
+package hw07;
+/**
+ * This class designed to read the data from the csv file, and write 
+ * that data to a new file. This class will have a default constructor
+ * and also two methods. One to read the data from the file, and another
+ * to write the data to another new file. 
+ */
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public final class CSVReaderWriter {
+	/**
+	 * Default Constructor with an empty body
+	 */
+	private CSVReaderWriter()
+	{
+		
+	}
+	/**
+	 * This method is to read the data from the csv file
+	 * it has a try catch blocks to catch the first exception which is
+	 * (FileNotFoundException), and another try catch blocks nested inside
+	 * to catch the other exception which is (DateFormatException). 
+	 * It creates a facility database object and store every facility object
+	 * in it. The facility object will read every field from the file separated
+	 * by the comma. While loop to keep reading from the file as long as the file 
+	 * has lines to read.
+	 * @param String that takes the file name(la_facility_ratings)
+	 * @return a facility database object that's populated with facility objects
+	 * @throws FileNotFoundException 
+	 * @throws DateFormatException 
+	 */
+	public static FacilityDatabase readData(String fileName) throws FileNotFoundException, DateFormatException
+	{
+		fileName = "files/la_facility_ratings.csv"; // file name
+		// creating a facility database object
+		FacilityDatabase facility_database = new FacilityDatabase();
+		// a try block to wrap the reading code inside
+		try {
+			// creating a file object and passing the file name
+			File inFile = new File(fileName);
+			// creating a scanner object and passing the file object 
+			Scanner in = new Scanner(inFile);
+			// while loop to keep looping as long as the csv file has lines to read
+			while(in.hasNextLine())
+			{
+				// creating a string to read each line as a string
+				String next = in.nextLine();
+				// creating an array of strings and splitting the line by the comma
+				// storing every separated field in an element of that array
+				String[] tokens = next.split(",");
+				// storing the name in the first element 
+				String facility_name = tokens[0];
+				// storing the address in the second element 
+				String facility_address = tokens[1];
+				// storing the zipcode in the third element
+				// parsing the zipcode to convert the string element into an integer
+				int facility_zipcode = Integer.parseInt(tokens[2]);
+				// storing the date in the fourth element 
+				String date_of_inspection = tokens[3];
+				// storing the score in the fifth element
+				// parsing the score to convert it into an integer
+				int score = Integer.parseInt(tokens[4]);
+				// convert the string into a single character to store the grade in it
+				char grade = tokens[5].charAt(0);
+				try
+				{
+					// creating a facility object and passing all the variables as parameters
+					Facility facility1 = new Facility(facility_name, facility_address, facility_zipcode, date_of_inspection, score, grade);
+					facility_database.add(facility1);// populating the facility object with the facility database object
+				}
+				// catching the DateFormatException
+				catch(DateFormatException ex)
+				{
+					// printing the exception message
+					System.out.println(ex.getMessage());
+				}
+			}		
+		}
+		// catching the FileNotFoundException 
+		catch(FileNotFoundException ex)
+		{
+			// printing the exception message
+			System.out.println(ex.getMessage());
+		}
+//		for(Facility f: facility_database)
+//		{
+//			System.out.println(f);
+//		}
+		return facility_database; // returns the facility database object
+	}
+
+	/**
+	 * This method to write the data to a new csv file
+	 * @param facility_database object
+	 * @param string to store the fileName
+	 * @throws FileNotFoundException
+	 */
+	public static void writeData(FacilityDatabase facility_database, String fileName) throws FileNotFoundException
+	{
+		// creating a new file name 
+		fileName = "files/la_facilityOut.csv";
+		// creating a try block and catch block to catch the FileNotFoundException
+		try
+		{
+			// creating a file object and passing the file name
+			File outFile = new File(fileName);
+			// creating a print writer object and passing the file object
+			PrintWriter pw = new PrintWriter(outFile);
+			// a for loop to keep writing every facility to the file
+			for(int i = 0; i < facility_database.size(); i++)
+			{
+				// writing to the file every facility fields separated by a comma
+				pw.print(facility_database.get(i).getName() + "," +  facility_database.get(i).getAddress() + "," + facility_database.get(i).getZipcode()
+						+ "," + facility_database.get(i).getYear() + "-" + facility_database.get(i).getMonth() + "-" + facility_database.get(i).getDay()
+						+ "," + facility_database.get(i).getScore() + "," + facility_database.get(i).getGrade() + "\n"); 
+			}
+			// flush and close the file
+			pw.flush();
+			pw.close();	
+		}
+		catch(FileNotFoundException ex)
+		{
+			// printing the exception message
+			System.out.println(ex.getMessage());
+		}
+	}
+}

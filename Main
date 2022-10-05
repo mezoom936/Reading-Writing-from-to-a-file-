@@ -1,0 +1,39 @@
+package hw07;
+/*
+ * HW07
+ * Name: Mina Mekhaiel
+ * Prof: Mr. Kennan
+ */
+import java.io.FileNotFoundException;
+
+public class Main {
+
+	// declaring the two exceptions(FileNotFoundException, and FileNotFoundException
+		public static void main(String[] args) throws FileNotFoundException, DateFormatException{
+		// creating a string and passing the file name 
+		String fileName = "files/la_facility_ratings.csv";
+		String newFile = "files/la_facilityOut.csv"; // creating another string for the new file name
+		FacilityDatabase facilities = CSVReaderWriter.readData(fileName); // creating a facility database object and invoking the readData method 
+		CSVReaderWriter.writeData(facilities, newFile); // invoking the writeData method 
+		System.out.println("Display Facilities with a specific grade:  ");
+		// invoking the display facilities with a specific grade
+		facilities.displayFacilitiesWithGrade('C', 10);
+		System.out.println("Display Facilities with a greater than or equal to score " + 90 + ": ");
+		// invoking the display facilities with a specific score greater than or equal to the specified score
+		facilities.displayFacilitiesWithScoreGreater(90, 10);
+		System.out.println("Display Facilities with a less than or equal to score " + 79 + ": ");
+		// invoking the display facilities with a specific score less than or equal to the specified score
+		facilities.displayFacilityWithScoreLess(79, 10);
+		System.out.println("Display Facilities with a specific zipcode: ");
+		// invoking the display facilities with a specific zipcode
+		facilities.displayFacilitiesByZipcode(90032, 5);
+		System.out.println("Display Facilities with a specific month: ");
+		// invoking the display facilities method with a specific month date
+		facilities.displayFacilitiesByMonth(05, 5);
+		System.out.println("Total facilities with specific grade: ");
+		// // invoking the display facilities method to get the count of facilities for each grade
+		facilities.displayCountsByGrade();
+		
+		}
+
+}
